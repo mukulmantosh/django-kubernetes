@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service
+  namespace: django-app
+  labels:
+    app: postgres-svc
+spec:
+  type: NodePort
+  ports:
+    - port: 5432
+      targetPort: 5432
+      nodePort: 30004
+  selector:
+    app: postgresdb

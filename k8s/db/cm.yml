@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-secret-credentials
+  namespace: django-app
+  labels:
+    app: postgres
+data:
+  POSTGRES_DB: "django-app"
+  POSTGRES_USER: "sampleuser"
+  POSTGRES_PASSWORD: "sampleuser123"

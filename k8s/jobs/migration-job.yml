@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: django-db-migrations
+  namespace: django-app
+spec:
+  ttlSecondsAfterFinished: 100
+  activeDeadlineSeconds: 60
+
+  template:
+    spec:
+      volumes:
+        - name: postgres-db-storage
+          persistentVolumeClaim:
+            claimName: postgres-pvc
+      containers:
+        - name: migration-container
+          image: my-django-app:latest
+          command: ['python', 'manage.py', 'migrate']
+          imagePullPolicy: Never
+          envFrom:
+            - configMapRef:
+                name: app-cm
+          ports:
+            - containerPort: 8000
+          volumeMounts:
+            - mountPath: "/data/db"
+              name: postgres-db-storage
+      restartPolicy: OnFailure
+  backoffLimit: 15

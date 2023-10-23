@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: django-staticfiles
+  namespace: django-app
+spec:
+  ttlSecondsAfterFinished: 100
+  activeDeadlineSeconds: 60
+
+  template:
+    spec:
+      volumes:
+        - name: staticfiles
+          persistentVolumeClaim:
+            claimName: staticfiles-pvc
+      containers:
+        - name: staticfiles-container
+          image: my-django-app:latest
+          command: ['python', 'manage.py', 'collectstatic', '--noinput']
+          imagePullPolicy: Never
+          envFrom:
+            - configMapRef:
+                name: app-cm
+          ports:
+            - containerPort: 8000
+          volumeMounts:
+            - mountPath: "/data/static"
+              name: staticfiles
+      restartPolicy: OnFailure
+  backoffLimit: 3

@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django-app-deploy
+  namespace: django-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: django-application
+  template:
+    metadata:
+      labels:
+        app: django-application
+    spec:
+      volumes:
+        - name: postgres-db-storage
+          persistentVolumeClaim:
+            claimName: postgres-pvc
+        - name: staticfiles
+          persistentVolumeClaim:
+            claimName: staticfiles-pvc
+      containers:
+        - image: my-django-app:latest
+          imagePullPolicy: Never
+          name: django-app-container
+          envFrom:
+            - configMapRef:
+                name: app-cm
+          ports:
+            - containerPort: 8000
+          volumeMounts:
+            - mountPath: "/data/db"
+              name: postgres-db-storage
+            - mountPath: "/data/static"
+              name: staticfiles
