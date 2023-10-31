@@ -15,9 +15,9 @@ spec:
             claimName: staticfiles-pvc
       containers:
         - name: staticfiles-container
-          image: my-django-app:latest
+          image: mukulmantosh/django-kubernetes:1.0
           command: ['python', 'manage.py', 'collectstatic', '--noinput']
-          imagePullPolicy: Never
+          imagePullPolicy: Always
           envFrom:
             - configMapRef:
                 name: app-cm

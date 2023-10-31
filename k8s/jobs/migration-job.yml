@@ -15,9 +15,9 @@ spec:
             claimName: postgres-pvc
       containers:
         - name: migration-container
-          image: my-django-app:latest
+          image: mukulmantosh/django-kubernetes:1.0
           command: ['python', 'manage.py', 'migrate']
-          imagePullPolicy: Never
+          imagePullPolicy: Always
           envFrom:
             - configMapRef:
                 name: app-cm

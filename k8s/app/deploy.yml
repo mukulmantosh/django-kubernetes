@@ -21,8 +21,8 @@ spec:
           persistentVolumeClaim:
             claimName: staticfiles-pvc
       containers:
-        - image: my-django-app:latest
-          imagePullPolicy: Never
+        - image: mukulmantosh/django-kubernetes:1.0
+          imagePullPolicy: Always
           name: django-app-container
           envFrom:
             - configMapRef:
