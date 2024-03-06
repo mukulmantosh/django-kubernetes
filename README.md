@@ -10,4 +10,4 @@ This guide provides detailed instructions on how to deploy a Django application 
 - kubectl command-line tool installed
 
 ### Blog
-[Deploying Django Apps in Kubernetes](https://blog.jetbrains.com/pycharm/2024/03/deploying-django-apps-in-kubernetes/)
+- [Deploying Django Apps in Kubernetes](https://blog.jetbrains.com/pycharm/2024/03/deploying-django-apps-in-kubernetes/)
