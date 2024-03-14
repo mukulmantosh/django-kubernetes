@@ -9,10 +9,6 @@ spec:
 
   template:
     spec:
-      volumes:
-        - name: postgres-db-storage
-          persistentVolumeClaim:
-            claimName: postgres-pvc
       containers:
         - name: migration-container
           image: mukulmantosh/django-kubernetes:1.0
@@ -23,8 +19,5 @@ spec:
                 name: app-cm
           ports:
             - containerPort: 8000
-          volumeMounts:
-            - mountPath: "/data/db"
-              name: postgres-db-storage
       restartPolicy: OnFailure
   backoffLimit: 15

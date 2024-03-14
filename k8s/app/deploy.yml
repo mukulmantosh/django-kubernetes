@@ -14,9 +14,6 @@ spec:
         app: django-application
     spec:
       volumes:
-        - name: postgres-db-storage
-          persistentVolumeClaim:
-            claimName: postgres-pvc
         - name: staticfiles
           persistentVolumeClaim:
             claimName: staticfiles-pvc
@@ -30,7 +27,5 @@ spec:
           ports:
             - containerPort: 8000
           volumeMounts:
-            - mountPath: "/data/db"
-              name: postgres-db-storage
             - mountPath: "/data/static"
               name: staticfiles
